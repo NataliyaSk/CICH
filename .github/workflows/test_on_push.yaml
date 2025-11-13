@@ -1,0 +1,29 @@
+name: Run tests on any Push event
+
+on:
+  push:
+    branches:
+      - '**'  # все ветки, но НЕ теги
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install coverage
+
+      - name: Run tests with coverage
+        run: coverage run -m pytest src/tests.py  # или просто `coverage run src/tests.py`, если это скрипт
+
+      - name: Show coverage report
+        run: coverage report
