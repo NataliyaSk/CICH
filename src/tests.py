@@ -1,5 +1,4 @@
 import unittest
-# src/tests.py
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -63,7 +62,19 @@ class FlaskAppTests(unittest.TestCase):
         r = self.app.get('/add?a=2&b=3')
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.data, b'5.0')
-##
-###
+
+    # Новый тест для /multiply
+    def test_multiply(self):
+        r = self.app.get('/multiply?a=3&b=4')
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.data, b'12.0')
+
+        r = self.app.get('/multiply?a=5&b=-2')
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.data, b'-10.0')
+
+        r = self.app.get('/multiply?a=abc&b=2')
+        self.assertIn('НЕ числа', r.data.decode())
+
 if __name__ == '__main__':
     unittest.main()

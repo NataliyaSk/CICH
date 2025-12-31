@@ -25,18 +25,18 @@ def add():
         return 'a и b - НЕ числа'
     return str(a + b)
 
+# Новый маршрут /multiply
+@app.route('/multiply', methods=['GET'])
+def multiply():
+    try:
+        a = float(request.args.get('a'))
+        b = float(request.args.get('b'))
+    except (TypeError, ValueError):
+        return 'a и b - НЕ числа'
+    return str(a * b)
 
 @app.route('/api', methods=['GET', 'POST'])
 def api():
-    """
-    /api entpoint
-    GET - returns json= {'status': 'test'}
-    POST -  {
-            name - str not null
-            age - int optional
-            }
-    :return:
-    """
     if request.method == 'GET':
         return jsonify({'status': 'test'})
     elif request.method == 'POST':
