@@ -23,7 +23,7 @@ def add():
         b = float(request.args.get('b'))
     except (TypeError, ValueError):
         return 'a и b - НЕ числа'
-    return str(a + b)
+    return str(a * b)
 
 
 @app.route('/api', methods=['GET', 'POST'])
